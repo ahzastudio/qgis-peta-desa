@@ -8,6 +8,7 @@ email=admin@ahzastudio.com
 about=Plugin QGIS 3.x profesional untuk menghasilkan Layout Peta Desa otomatis (Peta Citra, Peta Sarana & Prasarana, Peta Penutup Lahan) lengkap dengan bingkai, legenda, inset, skala grafis, dan metadata SRGI 2013.
 tracker=https://github.com/ahzastudio/qgis-peta-desa/issues
 repository=https://github.com/ahzastudio/qgis-peta-desa
+homepage=https://github.com/ahzastudio/qgis-peta-desa
 category=Vector
 tags=peta desa, perka big, kartografer, layout, automasi, indonesia, spatial
 experimental=False
