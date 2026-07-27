@@ -56,6 +56,8 @@ class PetaDesaLayoutGenerator:
         return QgsLayoutSize(w, h, QgsUnitTypes.LayoutMillimeters)
 
     def add_box(self, layout, x, y, w, h, outline_width=0.35, fill="255,255,255,0", stroke_color="0,0,0,255", item_id=None):
+        x += getattr(self, 'dx', 0)
+        y += getattr(self, 'dy', 0)
         item = QgsLayoutItemShape(layout)
         item.setShapeType(QgsLayoutItemShape.Rectangle)
         stroke_rgba = [int(c) for c in stroke_color.split(",")]
@@ -74,6 +76,10 @@ class PetaDesaLayoutGenerator:
         return item
 
     def add_line(self, layout, x1, y1, x2, y2, stroke_width=0.5, stroke_color="0,169,230,255", item_id=None):
+        x1 += getattr(self, 'dx', 0)
+        y1 += getattr(self, 'dy', 0)
+        x2 += getattr(self, 'dx', 0)
+        y2 += getattr(self, 'dy', 0)
         w = max(abs(x2 - x1), 0.1)
         h = max(abs(y2 - y1), 0.1)
         item = QgsLayoutItemShape(layout)
@@ -93,6 +99,8 @@ class PetaDesaLayoutGenerator:
         return item
 
     def add_picture(self, layout, picture_path, x, y, w, h, item_id=None):
+        x += getattr(self, 'dx', 0)
+        y += getattr(self, 'dy', 0)
         item = QgsLayoutItemPicture(layout)
         item.setPicturePath(picture_path)
         item.setResizeMode(QgsLayoutItemPicture.Zoom)
@@ -107,6 +115,8 @@ class PetaDesaLayoutGenerator:
     def add_label(self, layout, text, x, y, w, h, size=9, bold=False,
                   font_family="Arial", color="0,0,0", h_align=Qt.AlignLeft, v_align=Qt.AlignVCenter,
                   frame=False, bg_color=None, item_id=None):
+        x += getattr(self, 'dx', 0)
+        y += getattr(self, 'dy', 0)
         item = QgsLayoutItemLabel(layout)
         item.setText(text)
         item.setMarginX(1.0)
@@ -437,12 +447,17 @@ class PetaDesaLayoutGenerator:
         layout.initializeDefaults()
         layout.setName(layout_name)
 
-        ukuran_kertas = config.get("ukuran_kertas", "A1 Custom (660x520 mm)")
+        ukuran_kertas = config.get("ukuran_kertas", "A1 Landscape (Custom 660x520 mm)")
         is_a0 = "A0" in ukuran_kertas
+        is_real = "Real" in ukuran_kertas
 
         if is_a0:
+            content_w, content_h = 1050.0, 780.0
+            page_w, page_h = (1189.0, 841.0) if is_real else (1050.0, 780.0)
+            self.dx = (page_w - content_w) / 2.0
+            self.dy = (page_h - content_h) / 2.0
+            
             # Custom A0 Presisi Matrik: Lebar 1050 mm, Tinggi 780 mm
-            page_w, page_h = 1050.0, 780.0
             neat_luar_x, neat_luar_y, neat_luar_w, neat_luar_h = 7.0, 7.0, 1036.0, 766.0
             neat_dalam_x, neat_dalam_y, neat_dalam_w, neat_dalam_h = 10.0, 10.0, 1030.0, 760.0 # 103x76 cm
             map_x, map_y, map_w, map_h = 15.0, 15.0, 750.0, 750.0 # 75x75 cm
@@ -454,8 +469,12 @@ class PetaDesaLayoutGenerator:
             inset_x_off1, inset_x_off2 = 22.0, 148.0
             logo_w, logo_h = 30.0, 18.0
         else:
+            content_w, content_h = 660.0, 520.0
+            page_w, page_h = (841.0, 594.0) if is_real else (660.0, 520.0)
+            self.dx = (page_w - content_w) / 2.0
+            self.dy = (page_h - content_h) / 2.0
+            
             # Standar Presisi A1 Custom: Lebar 660 mm, Tinggi 520 mm (Sesuai Spesifikasi Pengguna)
-            page_w, page_h = 660.0, 520.0
             neat_luar_x, neat_luar_y, neat_luar_w, neat_luar_h = 15.0, 15.0, 630.0, 490.0
             neat_dalam_x, neat_dalam_y, neat_dalam_w, neat_dalam_h = 25.0, 25.0, 470.0, 470.0 
             map_x, map_y, map_w, map_h = 30.0, 30.0, 460.0, 460.0 
@@ -486,7 +505,7 @@ class PetaDesaLayoutGenerator:
         main_map.setFrameEnabled(True)
         layout.addLayoutItem(main_map)
 
-        main_map.attemptMove(self.mm_point(map_x, map_y))
+        main_map.attemptMove(self.mm_point(map_x + getattr(self, 'dx', 0), map_y + getattr(self, 'dy', 0)))
         main_map.attemptResize(self.mm_size(map_w, map_h))
 
         ext = self.get_project_extent()
@@ -539,7 +558,7 @@ class PetaDesaLayoutGenerator:
             north.setFrameEnabled(False)
             north.setBackgroundEnabled(False)
             layout.addLayoutItem(north)
-            north.attemptMove(self.mm_point(north_x, north_y))
+            north.attemptMove(self.mm_point(north_x + getattr(self, 'dx', 0), north_y + getattr(self, 'dy', 0)))
             north.attemptResize(self.mm_size(north_w, north_h))
         else:
             self.add_label(layout, "U\n↑", north_x, north_y, north_w, north_h, size=11, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
@@ -572,7 +591,7 @@ class PetaDesaLayoutGenerator:
         scale_bar.setFrameEnabled(False)
         scale_bar.setBackgroundEnabled(False)
         layout.addLayoutItem(scale_bar)
-        scale_bar.attemptMove(self.mm_point(521.32, 74.02))
+        scale_bar.attemptMove(self.mm_point(521.32 + getattr(self, 'dx', 0), 74.02 + getattr(self, 'dy', 0)))
         scale_bar.attemptResize(self.mm_size(92.4, 13.2))
         try:
             scale_bar.update()
@@ -591,7 +610,7 @@ class PetaDesaLayoutGenerator:
         inset1.setId("PETA_INSET_1")
         inset1.setFrameEnabled(True)
         layout.addLayoutItem(inset1)
-        inset1.attemptMove(self.mm_point(517.5, 104.0))
+        inset1.attemptMove(self.mm_point(517.5 + getattr(self, 'dx', 0), 104.0 + getattr(self, 'dy', 0)))
         inset1.attemptResize(self.mm_size(40.0, 40.0))
 
         # Kotak 2: Diagram Lokasi
@@ -602,7 +621,7 @@ class PetaDesaLayoutGenerator:
         inset2.setId("DIAGRAM_LOKASI")
         inset2.setFrameEnabled(True)
         layout.addLayoutItem(inset2)
-        inset2.attemptMove(self.mm_point(582.5, 104.0))
+        inset2.attemptMove(self.mm_point(582.5 + getattr(self, 'dx', 0), 104.0 + getattr(self, 'dy', 0)))
         inset2.attemptResize(self.mm_size(40.0, 40.0))
 
         inset_extent = QgsRectangle(ext)
@@ -751,7 +770,7 @@ class PetaDesaLayoutGenerator:
         layout.addLayoutItem(legend)
         
         # Geser mepet ke garis cyan pinggir (509.0) dan maksimalkan lebar hingga 120mm
-        legend.attemptMove(self.mm_point(509.0, 201.0))
+        legend.attemptMove(self.mm_point(509.0 + getattr(self, 'dx', 0), 201.0 + getattr(self, 'dy', 0)))
         legend.attemptResize(self.mm_size(120.0, 215.0))
         
         try:

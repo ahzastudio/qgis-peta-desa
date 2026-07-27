@@ -182,12 +182,22 @@
        <widget class="QComboBox" name="cmbUkuranKertas">
         <item>
          <property name="text">
-          <string>A1 Landscape</string>
+          <string>A1 Landscape (Real 841x594 mm)</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>A0 Landscape</string>
+          <string>A1 Landscape (Custom 660x520 mm)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>A0 Landscape (Real 1189x841 mm)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>A0 Landscape (Custom 1050x780 mm)</string>
          </property>
         </item>
        </widget>
