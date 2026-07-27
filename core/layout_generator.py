@@ -253,6 +253,13 @@ class PetaDesaLayoutGenerator:
             # Warna biru azure (#0070ff) untuk Grid Geografis (Graticul)
             azure_color = QColor(0, 112, 255)
             grid1.setAnnotationFontColor(azure_color)
+            
+            # Ubah warna frame/tick mark menjadi biru agar serasi
+            try:
+                grid1.setFramePenColor(azure_color)
+            except Exception:
+                pass
+                
             line_width1 = '0.5' if is_a0 else '0.3'
             line_symbol1 = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': line_width1})
             grid1.setLineSymbol(line_symbol1)
@@ -340,6 +347,10 @@ class PetaDesaLayoutGenerator:
             # Warna biru azure (#0070ff) untuk Grid Inset agar seragam dengan Juknis BIG
             azure_color = QColor(0, 112, 255)
             grid.setAnnotationFontColor(azure_color)
+            try:
+                grid.setFramePenColor(azure_color)
+            except Exception:
+                pass
             line_symbol = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.1'})
             grid.setLineSymbol(line_symbol)
             
@@ -395,6 +406,10 @@ class PetaDesaLayoutGenerator:
             # Warna biru azure (#0070ff) untuk teks dan garis grid agar seragam dengan Juknis BIG
             azure_color = QColor(0, 112, 255)
             grid.setAnnotationFontColor(azure_color)
+            try:
+                grid.setFramePenColor(azure_color)
+            except Exception:
+                pass
             line_symbol = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.4'})
             grid.setLineSymbol(line_symbol)
             
