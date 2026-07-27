@@ -246,7 +246,7 @@ class PetaDesaLayoutGenerator:
             grid1.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Left)
             grid1.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Right)
             
-            grid1.setAnnotationFrameDistance(0.5)
+            grid1.setAnnotationFrameDistance(1.0 if is_a0 else 0.5)
 
             grid1.setFrameStyle(QgsLayoutItemMapGrid.ExteriorTicks)
             grid1.setFrameWidth(1.2)
@@ -258,7 +258,7 @@ class PetaDesaLayoutGenerator:
             try:
                 txt_fmt = grid1.annotationTextFormat()
                 txt_fmt.setFont(QFont("Arial"))
-                txt_fmt.setSize(12.0 if is_a0 else 7.0)
+                txt_fmt.setSize(10.0 if is_a0 else 7.0)
                 grid1.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
                 with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
@@ -300,7 +300,7 @@ class PetaDesaLayoutGenerator:
             grid2.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Right)
             
             # Beri offset/jarak agar label UTM tidak menabrak label DMS
-            grid2.setAnnotationFrameDistance(5.0)
+            grid2.setAnnotationFrameDistance(7.0 if is_a0 else 5.0)
 
             grid2.setStyle(QgsLayoutItemMapGrid.Cross)
             grid2.setCrossLength(2.0)
@@ -314,7 +314,7 @@ class PetaDesaLayoutGenerator:
             try:
                 txt_fmt = grid2.annotationTextFormat()
                 txt_fmt.setFont(QFont("Arial"))
-                txt_fmt.setSize(14.0 if is_a0 else 8.0)
+                txt_fmt.setSize(12.0 if is_a0 else 8.0)
                 grid2.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
                 with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
