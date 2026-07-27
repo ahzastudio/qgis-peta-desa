@@ -1,0 +1,14 @@
+[general]
+name=Template Peta Desa
+qgisMinimumVersion=3.0
+description=Plugin Otomasi Layout & Penyajian Peta Desa Profesional sesuai Standar PerKa BIG No. 3 Tahun 2016.
+version=1.0.0
+author=Ahza Studio
+email=admin@ahzastudio.com
+about=Plugin QGIS 3.x profesional untuk menghasilkan Layout Peta Desa otomatis (Peta Citra, Peta Sarana & Prasarana, Peta Penutup Lahan) lengkap dengan bingkai, legenda, inset, skala grafis, dan metadata SRGI 2013.
+tracker=https://github.com/ahzastudio/qgis-peta-desa/issues
+repository=https://github.com/ahzastudio/qgis-peta-desa
+category=Vector
+tags=peta desa, perka big, kartografer, layout, automasi, indonesia, spatial
+experimental=False
+deprecated=False

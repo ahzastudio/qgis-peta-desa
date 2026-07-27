@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/template_peta_desa">
+        <file>icon.png</file>
+    </qresource>
+</RCC>
