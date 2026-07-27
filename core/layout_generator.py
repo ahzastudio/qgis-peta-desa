@@ -140,8 +140,9 @@ class PetaDesaLayoutGenerator:
         else:
             try:
                 item.setVAlign(v_align)
-            except Exception:
-                pass
+            except Exception as e:
+                import logging
+                logging.debug("Align exception: %s", e)
                 
         item.setFrameEnabled(frame)
         
@@ -155,8 +156,9 @@ class PetaDesaLayoutGenerator:
         try:
             item.setMarginX(1.0)
             item.setMarginY(0.5)
-        except Exception:
-            pass
+        except Exception as e:
+            import logging
+            logging.debug("Margin exception: %s", e)
 
         layout.addLayoutItem(item)
         item.attemptMove(self.mm_point(x, y))
@@ -171,8 +173,9 @@ class PetaDesaLayoutGenerator:
                 ext = self.iface.mapCanvas().extent()
                 if ext and not ext.isEmpty():
                     return QgsRectangle(ext)
-            except Exception:
-                pass
+            except Exception as e:
+                import logging
+                logging.debug("Extent exception: %s", e)
 
         combined = None
         for lyr in self.project.mapLayers().values():
@@ -186,7 +189,9 @@ class PetaDesaLayoutGenerator:
                     combined = QgsRectangle(e)
                 else:
                     combined.combineExtentWith(e)
-            except Exception:
+            except Exception as e:
+                import logging
+                logging.debug("Layer extent exception: %s", e)
                 continue
 
         if combined is not None and not combined.isEmpty():
@@ -220,8 +225,9 @@ class PetaDesaLayoutGenerator:
                         for f in os.listdir(d):
                             if f.lower().endswith(".svg") and f.lower() != "default.svg" and ("north" in f.lower() or "arrow" in f.lower()):
                                 return os.path.join(d, f)
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        import logging
+                        logging.debug("SVG search exception: %s", e)
         return None
 
     def setup_main_map_grids(self, map_item, skala, is_a0=False):
