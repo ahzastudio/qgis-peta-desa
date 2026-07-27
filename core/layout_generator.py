@@ -596,9 +596,18 @@ class PetaDesaLayoutGenerator:
             scale_bar.setNumberOfSegmentsLeft(0)
             try:
                 scale_bar.setUnitsPerSegment(skala / 100.0)
-                scale_bar.setHeight(6.0)
+                scale_bar.setHeight(4.0)
             except Exception:
                 pass
+                
+            try:
+                txt_fmt = scale_bar.textFormat()
+                txt_fmt.setFont(QFont("Arial"))
+                txt_fmt.setSize(12.0)
+                scale_bar.setTextFormat(txt_fmt)
+            except Exception:
+                pass
+                
             scale_bar.setFrameEnabled(False)
             scale_bar.setBackgroundEnabled(False)
             layout.addLayoutItem(scale_bar)
