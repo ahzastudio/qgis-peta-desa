@@ -248,7 +248,7 @@ class PetaDesaLayoutGenerator:
             
             grid1.setAnnotationFrameDistance(1.5 if is_a0 else 0.5)
 
-            grid1.setFrameStyle(QgsLayoutItemMapGrid.InteriorTicks)
+            grid1.setFrameStyle(QgsLayoutItemMapGrid.InteriorTicks if is_a0 else QgsLayoutItemMapGrid.ExteriorTicks)
             grid1.setFrameWidth(2.0 if is_a0 else 1.2)
             # Warna biru azure (#0070ff) untuk Grid Geografis (Graticul)
             azure_color = QColor(0, 112, 255)
@@ -308,11 +308,11 @@ class PetaDesaLayoutGenerator:
             grid2.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Right)
             
             # Beri offset/jarak agar label UTM tidak menabrak label DMS
-            grid2.setAnnotationFrameDistance(4.5 if is_a0 else 4.0)
+            grid2.setAnnotationFrameDistance(4.5 if is_a0 else 5.0)
 
             grid2.setStyle(QgsLayoutItemMapGrid.Cross)
             grid2.setCrossLength(4.0 if is_a0 else 2.0)
-            grid2.setFrameStyle(QgsLayoutItemMapGrid.InteriorTicks)
+            grid2.setFrameStyle(QgsLayoutItemMapGrid.InteriorTicks if is_a0 else QgsLayoutItemMapGrid.ExteriorTicks)
             grid2.setFrameWidth(2.0 if is_a0 else 1.2)
             # Warna hitam untuk Grid UTM (Measure)
             black_color = QColor(0, 0, 0)
