@@ -246,7 +246,7 @@ class PetaDesaLayoutGenerator:
             grid1.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Left)
             grid1.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Right)
             
-            grid1.setAnnotationFrameDistance(0.5)
+            grid1.setAnnotationFrameDistance(1.0 if is_a0 else 0.5)
 
             grid1.setFrameStyle(QgsLayoutItemMapGrid.InteriorTicks if is_a0 else QgsLayoutItemMapGrid.ExteriorTicks)
             grid1.setFrameWidth(2.0 if is_a0 else 1.2)
@@ -308,7 +308,7 @@ class PetaDesaLayoutGenerator:
             grid2.setAnnotationDirection(QgsLayoutItemMapGrid.Vertical, QgsLayoutItemMapGrid.Right)
             
             # Beri offset/jarak agar label UTM tidak menabrak label DMS
-            grid2.setAnnotationFrameDistance(6.5 if is_a0 else 5.0)
+            grid2.setAnnotationFrameDistance(6.0 if is_a0 else 5.0)
 
             grid2.setStyle(QgsLayoutItemMapGrid.Cross)
             grid2.setCrossLength(4.0 if is_a0 else 2.0)
