@@ -211,7 +211,7 @@ class PetaDesaLayoutGenerator:
                         pass
         return None
 
-    def setup_main_map_grids(self, map_item, skala):
+    def setup_main_map_grids(self, map_item, skala, is_a0=False):
         """Membuat 2 Grid pada Peta Utama: Grid 1 Geografis (DMS) & Grid 2 UTM (Meter)."""
         try:
 
@@ -258,7 +258,7 @@ class PetaDesaLayoutGenerator:
             try:
                 txt_fmt = grid1.annotationTextFormat()
                 txt_fmt.setFont(QFont("Arial"))
-                txt_fmt.setSize(7.0)
+                txt_fmt.setSize(12.0 if is_a0 else 7.0)
                 grid1.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
                 with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
@@ -314,7 +314,7 @@ class PetaDesaLayoutGenerator:
             try:
                 txt_fmt = grid2.annotationTextFormat()
                 txt_fmt.setFont(QFont("Arial"))
-                txt_fmt.setSize(8.0)
+                txt_fmt.setSize(14.0 if is_a0 else 8.0)
                 grid2.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
                 with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
@@ -325,7 +325,7 @@ class PetaDesaLayoutGenerator:
             with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
                 f.write(f"Error Grid Utama: {exc}\n{traceback.format_exc()}\n")
 
-    def setup_inset1_grid(self, inset_item):
+    def setup_inset1_grid(self, inset_item, is_a0=False):
         """Membuat Grid 10 Menit pada Inset 1 (Petunjuk Letak Peta)."""
         try:
             grid = QgsLayoutItemMapGrid("Grid 1", inset_item)
@@ -353,7 +353,7 @@ class PetaDesaLayoutGenerator:
             try:
                 txt_fmt = grid.annotationTextFormat()
                 txt_fmt.setFont(QFont("Arial"))
-                txt_fmt.setSize(6.0)
+                txt_fmt.setSize(10.0 if is_a0 else 6.0)
                 grid.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
                 with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
@@ -363,7 +363,7 @@ class PetaDesaLayoutGenerator:
             with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
                 f.write(f"Error Grid Inset 1: {exc}\n{traceback.format_exc()}\n")
 
-    def setup_inset2_grid(self, inset_item, main_map, config):
+    def setup_inset2_grid(self, inset_item, main_map, config, is_a0=False):
         """Membuat Grid & Overview Cakupan Peta Utama pada Inset 2 (Diagram Lokasi)."""
         try:
             from qgis.core import QgsCoordinateTransform, QgsCoordinateReferenceSystem
@@ -408,7 +408,7 @@ class PetaDesaLayoutGenerator:
             try:
                 txt_fmt = grid.annotationTextFormat()
                 txt_fmt.setFont(QFont("Arial"))
-                txt_fmt.setSize(6.0)
+                txt_fmt.setSize(10.0 if is_a0 else 6.0)
                 grid.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
                 with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
@@ -520,7 +520,7 @@ class PetaDesaLayoutGenerator:
         except Exception:
             pass
 
-        self.setup_main_map_grids(main_map, skala)
+        self.setup_main_map_grids(main_map, skala, is_a0=is_a0)
 
         # 2. SIDEBAR PANEL INFORMASI KANAN (130 x 470 mm)
         self.add_box(layout, panel_x, panel_y, panel_w, panel_h, outline_width=0.50, item_id="PANEL_INFORMASI")
@@ -749,8 +749,8 @@ class PetaDesaLayoutGenerator:
                 inset2.zoomToExtent(extent_wgs)
             
             # Pasang Grid 10 Menit untuk Inset 1 & Grid 1 Menit + Overview untuk Inset 2
-            self.setup_inset1_grid(inset1)
-            self.setup_inset2_grid(inset2, main_map, config)
+            self.setup_inset1_grid(inset1, is_a0=is_a0)
+            self.setup_inset2_grid(inset2, main_map, config, is_a0=is_a0)
         except Exception:
             pass
 
@@ -902,16 +902,16 @@ class PetaDesaLayoutGenerator:
             self.add_label(layout, "Sumber Data dan Riwayat Peta", panel_x + 5, 655.0, 70.0, 30.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_HEADER")
             self.add_label(layout, sumber_custom, panel_x + 75, 655.0, 175.0, 30.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_ISI")
             
-            catatan_isi = ": Batas peta tidak dapat dijadikan acuan hukum\n  sebenarnya di lapangan."
+            catatan_isi = ": Batas peta tidak dapat dijadikan acuan hukum sebenarnya di lapangan."
             self.add_label(layout, "Catatan", panel_x + 5, 690.0, 70.0, 15.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_HEADER")
-            self.add_label(layout, catatan_isi, panel_x + 75, 690.0, 175.0, 15.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_ISI")
+            self.add_label(layout, catatan_isi, panel_x + 75, 690.0, 180.0, 15.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_ISI")
             
             pengesahan_txt = (
                 f"Disahkan oleh:\n"
                 f"{config.get('jabatan_pengesah', 'Kepala Desa')} {config['nama_desa'].upper()}\n\n\n\n\n\n"
                 f"({config.get('nama_pengesah', '[NAMA KEPALA DESA]')})"
             )
-            self.add_label(layout, pengesahan_txt, panel_x + 10, 710.0, 240.0, 45.0, size=12, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, v_align=Qt.AlignVCenter, item_id="TXT_PENGESAHAN_FOOTER")
+            self.add_label(layout, pengesahan_txt, panel_x + 10, 725.0, 240.0, 45.0, size=12, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, v_align=Qt.AlignVCenter, item_id="TXT_PENGESAHAN_FOOTER")
         else:
             self.add_line(layout, 509.0, 419.0, 631.0, 419.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_4")
 
