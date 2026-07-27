@@ -249,11 +249,12 @@ class PetaDesaLayoutGenerator:
             grid1.setAnnotationFrameDistance(1.0 if is_a0 else 0.5)
 
             grid1.setFrameStyle(QgsLayoutItemMapGrid.ExteriorTicks)
-            grid1.setFrameWidth(1.2)
+            grid1.setFrameWidth(2.0 if is_a0 else 1.2)
             # Warna biru azure (#0070ff) untuk Grid Geografis (Graticul)
             azure_color = QColor(0, 112, 255)
             grid1.setAnnotationFontColor(azure_color)
-            line_symbol1 = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.3'})
+            line_width1 = '0.5' if is_a0 else '0.3'
+            line_symbol1 = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': line_width1})
             grid1.setLineSymbol(line_symbol1)
             try:
                 txt_fmt = grid1.annotationTextFormat()
@@ -303,13 +304,14 @@ class PetaDesaLayoutGenerator:
             grid2.setAnnotationFrameDistance(7.0 if is_a0 else 5.0)
 
             grid2.setStyle(QgsLayoutItemMapGrid.Cross)
-            grid2.setCrossLength(2.0)
+            grid2.setCrossLength(4.0 if is_a0 else 2.0)
             grid2.setFrameStyle(QgsLayoutItemMapGrid.ExteriorTicks)
-            grid2.setFrameWidth(1.2)
+            grid2.setFrameWidth(2.0 if is_a0 else 1.2)
             # Warna hitam untuk Grid UTM (Measure)
             black_color = QColor(0, 0, 0)
             grid2.setAnnotationFontColor(black_color)
-            line_symbol2 = QgsLineSymbol.createSimple({'color': '0,0,0,255', 'width': '0.1'})
+            line_width2 = '0.2' if is_a0 else '0.1'
+            line_symbol2 = QgsLineSymbol.createSimple({'color': '0,0,0,255', 'width': line_width2})
             grid2.setLineSymbol(line_symbol2)
             try:
                 txt_fmt = grid2.annotationTextFormat()
