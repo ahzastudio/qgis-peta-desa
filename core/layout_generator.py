@@ -452,16 +452,16 @@ class PetaDesaLayoutGenerator:
         is_real = "Real" in ukuran_kertas
 
         if is_a0:
-            content_w, content_h = 1050.0, 780.0
-            page_w, page_h = (1189.0, 841.0) if is_real else (1050.0, 780.0)
+            content_w, content_h = 1080.0, 810.0
+            page_w, page_h = (1189.0, 841.0) if is_real else (1080.0, 810.0)
             self.dx = (page_w - content_w) / 2.0
             self.dy = (page_h - content_h) / 2.0
             
-            # Custom A0 Presisi Matrik: Lebar 1050 mm, Tinggi 780 mm
-            neat_luar_x, neat_luar_y, neat_luar_w, neat_luar_h = 7.0, 7.0, 1036.0, 766.0
-            neat_dalam_x, neat_dalam_y, neat_dalam_w, neat_dalam_h = 10.0, 10.0, 1030.0, 760.0 # 103x76 cm
-            map_x, map_y, map_w, map_h = 15.0, 15.0, 750.0, 750.0 # 75x75 cm
-            panel_x, panel_y, panel_w, panel_h = 780.0, 10.0, 260.0, 760.0 # 26x76 cm
+            # Custom A0 Presisi Matrik
+            neat_luar_x, neat_luar_y, neat_luar_w, neat_luar_h = 15.0, 15.0, 1050.0, 780.0
+            neat_dalam_x, neat_dalam_y, neat_dalam_w, neat_dalam_h = 25.0, 25.0, 760.0, 760.0
+            map_x, map_y, map_w, map_h = 30.0, 30.0, 750.0, 750.0
+            panel_x, panel_y, panel_w, panel_h = 795.0, 25.0, 260.0, 760.0
             font_desa_sz = 26
             font_sub_sz = 11
             box_inset_w, box_inset_h = 122.0, 92.0
@@ -527,102 +527,164 @@ class PetaDesaLayoutGenerator:
 
         # A. Header Judul Peta Desa (Ekstrak Presisi QPT)
         jenis_peta = config.get('jenis_peta', 'PETA ADMINISTRASI').upper()
-        self.add_label(layout, jenis_peta, panel_x + 6, 29.0, 90.0, 6.0, size=14, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_JENIS")
-        
         lembar_txt = f"LEMBAR : {config.get('nomor_lembar', '..................')}"
-        self.add_label(layout, lembar_txt, panel_x + 6, 36.0, 90.0, 5.0, size=13, bold=True, color="0,112,192", h_align=Qt.AlignLeft, item_id="JUDUL_LEMBAR")
-
         nama_desa = config.get('nama_desa', '').strip()
         desa_txt = f"DESA {nama_desa.upper()}" if nama_desa else "DESA ................................."
-        self.add_label(layout, desa_txt, panel_x + 6, 42.0, 118.0, 10.0, size=25, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_DESA")
-
         nama_kecamatan = config.get('nama_kecamatan', '').strip()
         kec_txt = f"KECAMATAN {nama_kecamatan.upper()}" if nama_kecamatan else "KECAMATAN ....................."
-        
         nama_kabupaten = config.get('nama_kabupaten', '').strip()
         kab_txt = f"KABUPATEN {nama_kabupaten.upper()}" if nama_kabupaten else "KABUPATEN ....................."
         
-        self.add_label(layout, kec_txt, panel_x + 6, 52.0, 118.0, 7.0, size=14, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_KEC")
-        self.add_label(layout, kab_txt, panel_x + 6, 59.0, 118.0, 7.0, size=14, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_KAB")
+        if is_a0:
+            self.add_label(layout, jenis_peta, panel_x + 12, 35.0, 230.0, 10.0, size=24, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_JENIS")
+            self.add_label(layout, lembar_txt, panel_x + 12, 48.0, 230.0, 8.0, size=20, bold=True, color="0,112,192", h_align=Qt.AlignLeft, item_id="JUDUL_LEMBAR")
+            self.add_label(layout, desa_txt, panel_x + 12, 60.0, 236.0, 15.0, size=40, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_DESA")
+            self.add_label(layout, kec_txt, panel_x + 12, 80.0, 236.0, 12.0, size=24, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_KEC")
+            self.add_label(layout, kab_txt, panel_x + 12, 95.0, 236.0, 12.0, size=24, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_KAB")
+        else:
+            self.add_label(layout, jenis_peta, panel_x + 6, 29.0, 90.0, 6.0, size=14, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_JENIS")
+            self.add_label(layout, lembar_txt, panel_x + 6, 36.0, 90.0, 5.0, size=13, bold=True, color="0,112,192", h_align=Qt.AlignLeft, item_id="JUDUL_LEMBAR")
+            self.add_label(layout, desa_txt, panel_x + 6, 42.0, 118.0, 10.0, size=25, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_DESA")
+            self.add_label(layout, kec_txt, panel_x + 6, 52.0, 118.0, 7.0, size=14, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_KEC")
+            self.add_label(layout, kab_txt, panel_x + 6, 59.0, 118.0, 7.0, size=14, bold=True, h_align=Qt.AlignLeft, item_id="JUDUL_KAB")
 
         # B. Orientasi Utara (North Arrow) & Skala (Ekstrak Presisi QPT)
         north_svg = self.find_north_arrow_svg()
-        north_w, north_h = 20.0, 20.0
-        north_x = 504.75
-        north_y = 67.67
 
-        if north_svg:
-            north = QgsLayoutItemPicture(layout)
-            north.setId("ARAH_UTARA")
-            north.setPicturePath(north_svg)
-            north.setFrameEnabled(False)
-            north.setBackgroundEnabled(False)
-            layout.addLayoutItem(north)
-            north.attemptMove(self.mm_point(north_x + getattr(self, 'dx', 0), north_y + getattr(self, 'dy', 0)))
-            north.attemptResize(self.mm_size(north_w, north_h))
-        else:
-            self.add_label(layout, "U\n↑", north_x, north_y, north_w, north_h, size=11, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
-
-        # Teks Skala Angka
-        self.add_label(layout, f"SKALA 1 : {skala:,}".replace(",", "."), 521.32, 69.02, 85.0, 5.0, size=13, bold=True, h_align=Qt.AlignLeft, item_id="SKALA_ANGKA")
-
-        # Skala Grafis (Scale Bar)
-        scale_bar = QgsLayoutItemScaleBar(layout)
-        scale_bar.setId("SKALA_GRAFIS")
-        scale_bar.setLinkedMap(main_map)
-        scale_bar.setStyle("Double Box")
-        scale_bar.setUnits(QgsUnitTypes.DistanceMeters)
-        scale_bar.setUnitLabel("m")
-        scale_bar.setNumberOfSegments(8)
-        scale_bar.setNumberOfSegmentsLeft(0)
-        
-        try:
-            # 1 cm di kertas = skala / 100 meter di lapangan (contoh 1:5000 -> 50 meter per segmen)
-            seg = skala / 100.0
-            scale_bar.setUnitsPerSegment(seg)
-            scale_bar.setHeight(3.0)
+        if is_a0:
+            north_w, north_h = 40.0, 40.0
+            north_x, north_y = panel_x + 15.0, 115.0
+            
+            if north_svg:
+                north = QgsLayoutItemPicture(layout)
+                north.setId("ARAH_UTARA")
+                north.setPicturePath(north_svg)
+                north.setFrameEnabled(False)
+                north.setBackgroundEnabled(False)
+                layout.addLayoutItem(north)
+                north.attemptMove(self.mm_point(north_x + getattr(self, 'dx', 0), north_y + getattr(self, 'dy', 0)))
+                north.attemptResize(self.mm_size(north_w, north_h))
+            else:
+                self.add_label(layout, "U\n↑", north_x, north_y, north_w, north_h, size=20, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
+                
+            self.add_label(layout, f"SKALA 1 : {skala:,}".replace(",", "."), panel_x + 65.0, 120.0, 150.0, 10.0, size=22, bold=True, h_align=Qt.AlignLeft, item_id="SKALA_ANGKA")
+            
+            scale_bar = QgsLayoutItemScaleBar(layout)
+            scale_bar.setId("SKALA_GRAFIS")
+            scale_bar.setLinkedMap(main_map)
+            scale_bar.setStyle("Double Box")
+            scale_bar.setUnits(QgsUnitTypes.DistanceMeters)
+            scale_bar.setUnitLabel("m")
+            scale_bar.setNumberOfSegments(8)
+            scale_bar.setNumberOfSegmentsLeft(0)
             try:
-                scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFixed)
+                scale_bar.setUnitsPerSegment(skala / 100.0)
+                scale_bar.setHeight(6.0)
             except Exception:
                 pass
-        except Exception:
-            pass
+            scale_bar.setFrameEnabled(False)
+            scale_bar.setBackgroundEnabled(False)
+            layout.addLayoutItem(scale_bar)
+            scale_bar.attemptMove(self.mm_point(panel_x + 65.0 + getattr(self, 'dx', 0), 135.0 + getattr(self, 'dy', 0)))
+            scale_bar.attemptResize(self.mm_size(160.0, 20.0))
+            try:
+                scale_bar.update()
+            except Exception:
+                pass
+                
+            self.add_line(layout, panel_x, 170.0, panel_x + panel_w, 170.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_1")
 
-        scale_bar.setFrameEnabled(False)
-        scale_bar.setBackgroundEnabled(False)
-        layout.addLayoutItem(scale_bar)
-        scale_bar.attemptMove(self.mm_point(521.32 + getattr(self, 'dx', 0), 74.02 + getattr(self, 'dy', 0)))
-        scale_bar.attemptResize(self.mm_size(92.4, 13.2))
-        try:
-            scale_bar.update()
-        except Exception:
-            pass
+        else:
+            north_w, north_h = 20.0, 20.0
+            north_x = 504.75
+            north_y = 67.67
 
-        # Garis Pembatas Aksen Cyan (#00A9E6)
-        self.add_line(layout, 509.0, 90.0, 631.0, 90.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_1")
+            if north_svg:
+                north = QgsLayoutItemPicture(layout)
+                north.setId("ARAH_UTARA")
+                north.setPicturePath(north_svg)
+                north.setFrameEnabled(False)
+                north.setBackgroundEnabled(False)
+                layout.addLayoutItem(north)
+                north.attemptMove(self.mm_point(north_x + getattr(self, 'dx', 0), north_y + getattr(self, 'dy', 0)))
+                north.attemptResize(self.mm_size(north_w, north_h))
+            else:
+                self.add_label(layout, "U\n↑", north_x, north_y, north_w, north_h, size=11, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
+
+            # Teks Skala Angka
+            self.add_label(layout, f"SKALA 1 : {skala:,}".replace(",", "."), 521.32, 69.02, 85.0, 5.0, size=13, bold=True, h_align=Qt.AlignLeft, item_id="SKALA_ANGKA")
+
+            # Skala Grafis (Scale Bar)
+            scale_bar = QgsLayoutItemScaleBar(layout)
+            scale_bar.setId("SKALA_GRAFIS")
+            scale_bar.setLinkedMap(main_map)
+            scale_bar.setStyle("Double Box")
+            scale_bar.setUnits(QgsUnitTypes.DistanceMeters)
+            scale_bar.setUnitLabel("m")
+            scale_bar.setNumberOfSegments(8)
+            scale_bar.setNumberOfSegmentsLeft(0)
+            
+            try:
+                # 1 cm di kertas = skala / 100 meter di lapangan (contoh 1:5000 -> 50 meter per segmen)
+                seg = skala / 100.0
+                scale_bar.setUnitsPerSegment(seg)
+                scale_bar.setHeight(3.0)
+                try:
+                    scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFixed)
+                except Exception:
+                    pass
+            except Exception:
+                pass
+
+            scale_bar.setFrameEnabled(False)
+            scale_bar.setBackgroundEnabled(False)
+            layout.addLayoutItem(scale_bar)
+            scale_bar.attemptMove(self.mm_point(521.32 + getattr(self, 'dx', 0), 74.02 + getattr(self, 'dy', 0)))
+            scale_bar.attemptResize(self.mm_size(92.4, 13.2))
+            try:
+                scale_bar.update()
+            except Exception:
+                pass
+
+            # Garis Pembatas Aksen Cyan (#00A9E6)
+            self.add_line(layout, 509.0, 90.0, 631.0, 90.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_1")
 
         # D. Inset Ganda (Petunjuk Letak Peta & Diagram Lokasi) - Ekstrak Presisi QPT
-        # Kotak 1: Petunjuk Letak Peta
-        # self.add_box(layout, 509.0, 95.0, 57.0, 52.0, outline_width=0.25, item_id="BOX_INSET_1")
-        self.add_label(layout, "PETUNJUK LETAK PETA", 509.0, 95.0, 57.0, 6.0, size=7.0, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_INSET_1")
-        
-        inset1 = QgsLayoutItemMap(layout)
-        inset1.setId("PETA_INSET_1")
-        inset1.setFrameEnabled(True)
-        layout.addLayoutItem(inset1)
-        inset1.attemptMove(self.mm_point(517.5 + getattr(self, 'dx', 0), 104.0 + getattr(self, 'dy', 0)))
-        inset1.attemptResize(self.mm_size(40.0, 40.0))
+        if is_a0:
+            self.add_label(layout, "PETUNJUK LETAK PETA", panel_x + 10, 180.0, 110.0, 10.0, size=14, bold=True, h_align=Qt.AlignCenter, item_id="TXT_INSET_1")
+            inset1 = QgsLayoutItemMap(layout)
+            inset1.setId("PETA_INSET_1")
+            inset1.setFrameEnabled(True)
+            layout.addLayoutItem(inset1)
+            inset1.attemptMove(self.mm_point(panel_x + 15 + getattr(self, 'dx', 0), 195.0 + getattr(self, 'dy', 0)))
+            inset1.attemptResize(self.mm_size(100.0, 100.0))
 
-        # Kotak 2: Diagram Lokasi
-        # self.add_box(layout, 574.0, 95.0, 57.0, 52.0, outline_width=0.25, item_id="BOX_DIAGRAM_LOKASI")
-        self.add_label(layout, "DIAGRAM LOKASI", 574.0, 95.0, 57.0, 6.0, size=7.0, bold=True, font_family="Arial Narrow", color="0,112,255", h_align=Qt.AlignCenter, item_id="TXT_DIAGRAM_LOKASI")
+            self.add_label(layout, "DIAGRAM LOKASI", panel_x + 140, 180.0, 110.0, 10.0, size=14, bold=True, color="0,112,255", h_align=Qt.AlignCenter, item_id="TXT_DIAGRAM_LOKASI")
+            inset2 = QgsLayoutItemMap(layout)
+            inset2.setId("DIAGRAM_LOKASI")
+            inset2.setFrameEnabled(True)
+            layout.addLayoutItem(inset2)
+            inset2.attemptMove(self.mm_point(panel_x + 145 + getattr(self, 'dx', 0), 195.0 + getattr(self, 'dy', 0)))
+            inset2.attemptResize(self.mm_size(100.0, 100.0))
+        else:
+            self.add_label(layout, "PETUNJUK LETAK PETA", 509.0, 95.0, 57.0, 6.0, size=7.0, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_INSET_1")
+            
+            inset1 = QgsLayoutItemMap(layout)
+            inset1.setId("PETA_INSET_1")
+            inset1.setFrameEnabled(True)
+            layout.addLayoutItem(inset1)
+            inset1.attemptMove(self.mm_point(517.5 + getattr(self, 'dx', 0), 104.0 + getattr(self, 'dy', 0)))
+            inset1.attemptResize(self.mm_size(40.0, 40.0))
 
-        inset2 = QgsLayoutItemMap(layout)
-        inset2.setId("DIAGRAM_LOKASI")
-        inset2.setFrameEnabled(True)
-        layout.addLayoutItem(inset2)
-        inset2.attemptMove(self.mm_point(582.5 + getattr(self, 'dx', 0), 104.0 + getattr(self, 'dy', 0)))
-        inset2.attemptResize(self.mm_size(40.0, 40.0))
+            # Kotak 2: Diagram Lokasi
+            self.add_label(layout, "DIAGRAM LOKASI", 574.0, 95.0, 57.0, 6.0, size=7.0, bold=True, font_family="Arial Narrow", color="0,112,255", h_align=Qt.AlignCenter, item_id="TXT_DIAGRAM_LOKASI")
+
+            inset2 = QgsLayoutItemMap(layout)
+            inset2.setId("DIAGRAM_LOKASI")
+            inset2.setFrameEnabled(True)
+            layout.addLayoutItem(inset2)
+            inset2.attemptMove(self.mm_point(582.5 + getattr(self, 'dx', 0), 104.0 + getattr(self, 'dy', 0)))
+            inset2.attemptResize(self.mm_size(40.0, 40.0))
 
         inset_extent = QgsRectangle(ext)
         try:
@@ -634,18 +696,30 @@ class PetaDesaLayoutGenerator:
             square_extent = QgsRectangle(cx - side/2.0, cy - side/2.0, cx + side/2.0, cy + side/2.0)
             
             inset1.setExtent(square_extent)
-            inset1.attemptResize(self.mm_size(40.0, 40.0))
-            inset1.setScale(1500000)
-            
-            # Untuk Inset 2 (Diagram Lokasi), kita buat extent yang presisi menutupi 3x3 ukuran Peta Utama!
-            from qgis.core import QgsCoordinateTransform, QgsCoordinateReferenceSystem
-            
-            crsSrc = self.project.crs()
-            crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
-            transform = QgsCoordinateTransform(crsSrc, crsDest, self.project)
-            
-            inset2.setCrs(crsDest)
-            inset2.attemptResize(self.mm_size(40.0, 40.0))
+            if is_a0:
+                inset1.attemptResize(self.mm_size(100.0, 100.0))
+                inset1.setScale(1500000)
+                
+                from qgis.core import QgsCoordinateTransform, QgsCoordinateReferenceSystem
+                
+                crsSrc = self.project.crs()
+                crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
+                transform = QgsCoordinateTransform(crsSrc, crsDest, self.project)
+                
+                inset2.setCrs(crsDest)
+                inset2.attemptResize(self.mm_size(100.0, 100.0))
+            else:
+                inset1.attemptResize(self.mm_size(40.0, 40.0))
+                inset1.setScale(1500000)
+                
+                from qgis.core import QgsCoordinateTransform, QgsCoordinateReferenceSystem
+                
+                crsSrc = self.project.crs()
+                crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
+                transform = QgsCoordinateTransform(crsSrc, crsDest, self.project)
+                
+                inset2.setCrs(crsDest)
+                inset2.attemptResize(self.mm_size(40.0, 40.0))
             
             if config.get("grid_simetris", True):
                 # Extent selebar 3x3 dari Peta Utama, agar pas di tengah!
@@ -691,23 +765,20 @@ class PetaDesaLayoutGenerator:
             ":  Grid Geografi dan Grid UTM\n"
             ":  SRGI 2013 / WGS 1984"
         )
-        self.add_label(layout, meta_srs_left, 511.0, 148.0, 25.0, 14.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_SRS_LEFT")
-        self.add_label(layout, meta_srs_right, 536.0, 148.0, 93.0, 14.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_SRS_RIGHT")
-
-        # Garis Pembatas Aksen Cyan
-        self.add_line(layout, 509.0, 165.0, 631.0, 165.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_2")
+        if is_a0:
+            self.add_label(layout, meta_srs_left, panel_x + 10, 305.0, 70.0, 20.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_SRS_LEFT")
+            self.add_label(layout, meta_srs_right, panel_x + 85, 305.0, 160.0, 20.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_SRS_RIGHT")
+            self.add_line(layout, panel_x, 335.0, panel_x + panel_w, 335.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_2")
+        else:
+            self.add_label(layout, meta_srs_left, 511.0, 148.0, 25.0, 14.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_SRS_LEFT")
+            self.add_label(layout, meta_srs_right, 536.0, 148.0, 93.0, 14.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_SRS_RIGHT")
+            self.add_line(layout, 509.0, 165.0, 631.0, 165.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_2")
 
         # E. Logo & Penerbit Block - Ekstrak Presisi QPT
         logo_path = config.get("logo_path", "").strip()
         if not logo_path or not os.path.isfile(logo_path):
             logo_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logo-ahza.png")
             
-        if os.path.isfile(logo_path):
-            self.add_picture(layout, logo_path, 511.0, 171.0, 15.0, 15.0, item_id="PIC_LOGO_PEMDA")
-        else:
-            self.add_box(layout, 511.0, 171.0, 15.0, 15.0, item_id="BOX_LOGO_PEMDA")
-            self.add_label(layout, "LOGO\nPEMDA", 511.0, 171.0, 15.0, 15.0, size=5, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
-
         desa = config.get('nama_desa', '').strip() or "(NAMA DESA)"
         kecamatan = config.get('nama_kecamatan', '').strip() or "(NAMA KECAMATAN)"
         kabupaten = config.get('nama_kabupaten', '').strip() or "(NAMA KABUPATEN)"
@@ -723,10 +794,25 @@ class PetaDesaLayoutGenerator:
             f"KECAMATAN {kecamatan.upper()}\n"
             f"KABUPATEN {kabupaten.upper()}{kodepos_str} - PROVINSI {provinsi.upper()}"
         )
-        self.add_label(layout, penerbit_txt, 529.0, 170.0, 102.0, 18.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_PENERBIT")
 
-        # Garis Pembatas Aksen Cyan
-        self.add_line(layout, 509.0, 198.0, 631.0, 198.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_3")
+        if is_a0:
+            if os.path.isfile(logo_path):
+                self.add_picture(layout, logo_path, panel_x + 15, 345.0, 25.0, 25.0, item_id="PIC_LOGO_PEMDA")
+            else:
+                self.add_box(layout, panel_x + 15, 345.0, 25.0, 25.0, item_id="BOX_LOGO_PEMDA")
+                self.add_label(layout, "LOGO\nPEMDA", panel_x + 15, 345.0, 25.0, 25.0, size=8, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
+
+            self.add_label(layout, penerbit_txt, panel_x + 45, 345.0, 200.0, 30.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_PENERBIT")
+            self.add_line(layout, panel_x, 385.0, panel_x + panel_w, 385.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_3")
+        else:
+            if os.path.isfile(logo_path):
+                self.add_picture(layout, logo_path, 511.0, 171.0, 15.0, 15.0, item_id="PIC_LOGO_PEMDA")
+            else:
+                self.add_box(layout, 511.0, 171.0, 15.0, 15.0, item_id="BOX_LOGO_PEMDA")
+                self.add_label(layout, "LOGO\nPEMDA", 511.0, 171.0, 15.0, 15.0, size=5, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
+
+            self.add_label(layout, penerbit_txt, 529.0, 170.0, 102.0, 18.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_PENERBIT")
+            self.add_line(layout, 509.0, 198.0, 631.0, 198.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_3")
 
         # F. Legenda (Keterangan) - Ekstrak Presisi QPT
         legend = QgsLayoutItemLegend(layout)
@@ -769,56 +855,94 @@ class PetaDesaLayoutGenerator:
 
         layout.addLayoutItem(legend)
         
-        # Geser mepet ke garis cyan pinggir (509.0) dan maksimalkan lebar hingga 120mm
-        legend.attemptMove(self.mm_point(509.0 + getattr(self, 'dx', 0), 201.0 + getattr(self, 'dy', 0)))
-        legend.attemptResize(self.mm_size(120.0, 215.0))
-        
-        try:
-            legend.setTitleFont(QFont("Arial Narrow", 10, QFont.Bold))
-            legend.setStyleFont(legend.Title, QFont("Arial Narrow", 10, QFont.Bold))
-            legend.setStyleFont(legend.GroupTitle, QFont("Arial Narrow", 8, QFont.Bold))
-            legend.setStyleFont(legend.SubgroupTitle, QFont("Arial Narrow", 8, QFont.Bold))
-            legend.setStyleFont(legend.SymbolLabel, QFont("Arial Narrow", 6.5))
+        # Geser mepet ke garis cyan pinggir dan maksimalkan lebar
+        if is_a0:
+            legend.attemptMove(self.mm_point(panel_x + 5 + getattr(self, 'dx', 0), 395.0 + getattr(self, 'dy', 0)))
+            legend.attemptResize(self.mm_size(250.0, 250.0))
             
-            # Penyesuaian spasi margin agar rapat namun rapi
-            legend.setStyleMargin(legend.Title, 3.0)
-            legend.setStyleMargin(legend.GroupTitle, 2.0)
-            legend.setStyleMargin(legend.SubgroupTitle, 1.5)
-            legend.setStyleMargin(legend.SymbolLabel, 1.0)
-        except Exception:
-            pass
+            try:
+                legend.setTitleFont(QFont("Arial Narrow", 16, QFont.Bold))
+                legend.setStyleFont(legend.Title, QFont("Arial Narrow", 16, QFont.Bold))
+                legend.setStyleFont(legend.GroupTitle, QFont("Arial Narrow", 12, QFont.Bold))
+                legend.setStyleFont(legend.SubgroupTitle, QFont("Arial Narrow", 12, QFont.Bold))
+                legend.setStyleFont(legend.SymbolLabel, QFont("Arial Narrow", 10))
+            except Exception:
+                pass
+        else:
+            legend.attemptMove(self.mm_point(509.0 + getattr(self, 'dx', 0), 201.0 + getattr(self, 'dy', 0)))
+            legend.attemptResize(self.mm_size(120.0, 215.0))
+            
+            try:
+                legend.setTitleFont(QFont("Arial Narrow", 10, QFont.Bold))
+                legend.setStyleFont(legend.Title, QFont("Arial Narrow", 10, QFont.Bold))
+                legend.setStyleFont(legend.GroupTitle, QFont("Arial Narrow", 8, QFont.Bold))
+                legend.setStyleFont(legend.SubgroupTitle, QFont("Arial Narrow", 8, QFont.Bold))
+                legend.setStyleFont(legend.SymbolLabel, QFont("Arial Narrow", 6.5))
+                
+                # Penyesuaian spasi margin agar rapat namun rapi
+                legend.setStyleMargin(legend.Title, 3.0)
+                legend.setStyleMargin(legend.GroupTitle, 2.0)
+                legend.setStyleMargin(legend.SubgroupTitle, 1.5)
+                legend.setStyleMargin(legend.SymbolLabel, 1.0)
+            except Exception:
+                pass
 
         # G. Footer Sidebar Block - Ekstrak Presisi QPT
-        self.add_line(layout, 509.0, 419.0, 631.0, 419.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_4")
+        if is_a0:
+            self.add_line(layout, panel_x, 650.0, panel_x + panel_w, 650.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_4")
 
-        # Judul Sumber Data (Kolom Kiri, x=508.88 mm)
-        self.add_label(layout, "Sumber Data dan Riwayat Peta", 508.88, 422.0, 39.52, 22.0, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_HEADER")
-
-        # Isi List Sumber Data (Kolom Kanan, x=546.91 mm)
-        sumber_custom = config.get("sumber_data", "").strip()
-        if not sumber_custom:
-            sumber_custom = (
-                ":  1. Peta Rupa Bumi Indonesia (RBI) Tematik 1:25.000\n"
-                "   2. Citra Satelit Resolusi Tinggi (CSRT) SRGI 2013\n"
-                "   3. Batas Desa Delimitasi PerKa BIG 3/2016\n"
-                "   4. DEMNAS Badan Informasi Geospasial"
+            sumber_custom = config.get("sumber_data", "").strip()
+            if not sumber_custom:
+                sumber_custom = (
+                    ":  1. Peta Rupa Bumi Indonesia (RBI) Tematik 1:25.000\n"
+                    "   2. Citra Satelit Resolusi Tinggi (CSRT) SRGI 2013\n"
+                    "   3. Batas Desa Delimitasi PerKa BIG 3/2016\n"
+                    "   4. DEMNAS Badan Informasi Geospasial"
+                )
+            self.add_label(layout, "Sumber Data dan Riwayat Peta", panel_x + 5, 655.0, 70.0, 30.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_HEADER")
+            self.add_label(layout, sumber_custom, panel_x + 75, 655.0, 175.0, 30.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_ISI")
+            
+            catatan_isi = ": Batas peta tidak dapat dijadikan acuan hukum\n  sebenarnya di lapangan."
+            self.add_label(layout, "Catatan", panel_x + 5, 690.0, 70.0, 15.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_HEADER")
+            self.add_label(layout, catatan_isi, panel_x + 75, 690.0, 175.0, 15.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_ISI")
+            
+            pengesahan_txt = (
+                f"Disahkan oleh:\n"
+                f"{config.get('jabatan_pengesah', 'Kepala Desa')} {config['nama_desa'].upper()}\n\n\n\n\n\n"
+                f"({config.get('nama_pengesah', '[NAMA KEPALA DESA]')})"
             )
-        self.add_label(layout, sumber_custom, 546.91, 422.0, 86.56, 22.0, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_ISI")
+            self.add_label(layout, pengesahan_txt, panel_x + 10, 710.0, 240.0, 45.0, size=12, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, v_align=Qt.AlignVCenter, item_id="TXT_PENGESAHAN_FOOTER")
+        else:
+            self.add_line(layout, 509.0, 419.0, 631.0, 419.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_4")
 
-        # Judul Catatan (Kolom Kiri, x=511.0 mm)
-        self.add_label(layout, "Catatan", 511.0, 446.515, 37.39, 4.65, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_HEADER")
+            # Judul Sumber Data (Kolom Kiri, x=508.88 mm)
+            self.add_label(layout, "Sumber Data dan Riwayat Peta", 508.88, 422.0, 39.52, 22.0, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_HEADER")
 
-        # Isi Teks Catatan (Kolom Kanan, x=546.91 mm)
-        catatan_isi = ": Batas peta tidak dapat dijadikan acuan hukum\n  sebenarnya di lapangan."
-        self.add_label(layout, catatan_isi, 546.91, 446.515, 86.56, 7.66, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_ISI")
+            # Isi List Sumber Data (Kolom Kanan, x=546.91 mm)
+            sumber_custom = config.get("sumber_data", "").strip()
+            if not sumber_custom:
+                sumber_custom = (
+                    ":  1. Peta Rupa Bumi Indonesia (RBI) Tematik 1:25.000\n"
+                    "   2. Citra Satelit Resolusi Tinggi (CSRT) SRGI 2013\n"
+                    "   3. Batas Desa Delimitasi PerKa BIG 3/2016\n"
+                    "   4. DEMNAS Badan Informasi Geospasial"
+                )
+            self.add_label(layout, sumber_custom, 546.91, 422.0, 86.56, 22.0, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_SUMBER_ISI")
 
-        # Pengesahan Pejabat Kepala Desa
-        pengesahan_txt = (
-            f"Disahkan oleh:\n"
-            f"{config.get('jabatan_pengesah', 'Kepala Desa')} {config['nama_desa'].upper()}\n\n\n\n\n\n"
-            f"({config.get('nama_pengesah', '[NAMA KEPALA DESA]')})"
-        )
-        self.add_label(layout, pengesahan_txt, 511.0, 457.75, 118.0, 32.4, size=8, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, v_align=Qt.AlignVCenter, item_id="TXT_PENGESAHAN_FOOTER")
+            # Judul Catatan (Kolom Kiri, x=511.0 mm)
+            self.add_label(layout, "Catatan", 511.0, 446.515, 37.39, 4.65, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_HEADER")
+
+            # Isi Teks Catatan (Kolom Kanan, x=546.91 mm)
+            catatan_isi = ": Batas peta tidak dapat dijadikan acuan hukum\n  sebenarnya di lapangan."
+            self.add_label(layout, catatan_isi, 546.91, 446.515, 86.56, 7.66, size=9, font_family="Arial Narrow", h_align=Qt.AlignLeft, v_align=Qt.AlignTop, item_id="TXT_CATATAN_ISI")
+
+            # Pengesahan Pejabat Kepala Desa
+            pengesahan_txt = (
+                f"Disahkan oleh:\n"
+                f"{config.get('jabatan_pengesah', 'Kepala Desa')} {config['nama_desa'].upper()}\n\n\n\n\n\n"
+                f"({config.get('nama_pengesah', '[NAMA KEPALA DESA]')})"
+            )
+            self.add_label(layout, pengesahan_txt, 511.0, 457.75, 118.0, 32.4, size=8, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, v_align=Qt.AlignVCenter, item_id="TXT_PENGESAHAN_FOOTER")
 
         # Tambahkan ke layout manager
         manager.addLayout(layout)
