@@ -129,7 +129,20 @@ class PetaDesaLayoutGenerator:
         item.setFontColor(QColor(rgb[0], rgb[1], rgb[2]))
 
         item.setHAlign(h_align)
-        item.setVAlign(v_align)
+        
+        # Mapping Qt alignment flags to QgsLayoutItemLabel VAlign enums
+        if v_align == Qt.AlignVCenter:
+            item.setVAlign(QgsLayoutItemLabel.VAlignMiddle)
+        elif v_align == Qt.AlignBottom:
+            item.setVAlign(QgsLayoutItemLabel.VAlignBottom)
+        elif v_align == Qt.AlignTop:
+            item.setVAlign(QgsLayoutItemLabel.VAlignTop)
+        else:
+            try:
+                item.setVAlign(v_align)
+            except Exception:
+                pass
+                
         item.setFrameEnabled(frame)
         
         if bg_color:
