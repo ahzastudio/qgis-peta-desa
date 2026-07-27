@@ -40,8 +40,18 @@ Plugin ini sangat membantu dan mempercepat kerja kartografer, perangkat desa, se
 5. Klik **Jalankan / Generate**.
 6. QGIS *Print Layout* baru akan otomatis tersusun dengan hasil akhir yang siap diekspor ke PDF/Image.
 
-## 🤝 Dukungan & Isu
+## 🤝 Dukungan & Isu (Contact & Support)
 
-Jika Anda menemukan celah (*bug*) atau mempunyai ide fantastis untuk pembaruan fitur, silakan buat [New Issue](https://github.com/ahzastudio/qgis-peta-desa/issues) di repositori ini.
+* **Author:** Ahza Studio
+* **Email:** admin@ahzastudio.com
+* **Issue Tracker:** [Report a Bug](https://github.com/ahzastudio/qgis-peta-desa/issues)
+
+Jika Anda menemukan celah (*bug*) atau mempunyai ide fantastis untuk pembaruan fitur, silakan buat *New Issue* pada tautan di atas.
+
+---
+
+## 📄 License
+
+This plugin is licensed under the **GNU General Public License v3.0 (GPL-3.0)** - see the [LICENSE](LICENSE) file for details.
 
 **© 2026 Ahza Studio** - Solusi Pemetaan Spasial Profesional
