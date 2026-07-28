@@ -2,7 +2,7 @@
 name=Template Peta Desa
 qgisMinimumVersion=3.0
 description=Automated layout generator and professional presentation tool for Village Maps based on Indonesian Geospatial Agency (BIG) standards.
-version=1.0.5
+version=1.0.6
 author=Ahza Studio
 email=admin@ahzastudio.web.id
 about=A professional QGIS 3.x plugin to automatically generate Village Map Layouts (Imagery, Infrastructure, and Land Cover) complete with map frames, legends, insets, scale bars, and SRGI 2013 metadata.
@@ -14,7 +14,8 @@ tags=peta desa, perka big, kartografer, layout, automasi, indonesia, spatial
 experimental=False
 deprecated=False
 changelog=
-    1.0.3 - Bug fix: Menghapus mapping enum VAlignMiddle legacy yang menyebabkan crash pada QGIS 3.x.
+    1.0.6 - Enhancement: Menambahkan icon custom khusus untuk plugin Peta Desa di Toolbar QGIS.
+    1.0.5 - Bug fix: Pembaruan metadata plugin.
     1.0.2 - Bug fix: Memperbaiki error AttributeError VAlign saat memuat layout di versi QGIS tertentu.
     1.0.1 - Security patch: Memperbaiki masalah keamanan 'Try-Except-Pass' dari Bandit scan pada layout_generator.py. Menambahkan pencatatan error (logging) eksplisit.
     1.0.0 - Rilis perdana plugin Template Peta Desa.
