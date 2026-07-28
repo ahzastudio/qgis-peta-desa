@@ -2,7 +2,7 @@
 
 ![QGIS Plugin](https://img.shields.io/badge/QGIS-3.0+-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)
-![Version](https://img.shields.io/badge/Version-1.0.1-orange.svg)
+![Version](https://img.shields.io/badge/Version-1.0.2-orange.svg)
 
 **Template Peta Desa** adalah plugin QGIS profesional yang dirancang khusus untuk mengotomatisasi pembuatan Layout Peta Desa sesuai standar PerKa BIG No. 3 Tahun 2016 secara dinamis.
 

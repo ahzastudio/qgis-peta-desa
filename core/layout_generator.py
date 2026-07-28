@@ -130,13 +130,13 @@ class PetaDesaLayoutGenerator:
 
         item.setHAlign(h_align)
         
-        # Mapping Qt alignment flags to QgsLayoutItemLabel VAlign enums
+        # Mapping Qt alignment flags to QgsLayoutItem VAlign enums
         if v_align == Qt.AlignVCenter:
-            item.setVAlign(QgsLayoutItemLabel.VAlignMiddle)
+            item.setVAlign(QgsLayoutItem.VAlignMiddle)
         elif v_align == Qt.AlignBottom:
-            item.setVAlign(QgsLayoutItemLabel.VAlignBottom)
+            item.setVAlign(QgsLayoutItem.VAlignBottom)
         elif v_align == Qt.AlignTop:
-            item.setVAlign(QgsLayoutItemLabel.VAlignTop)
+            item.setVAlign(QgsLayoutItem.VAlignTop)
         else:
             try:
                 item.setVAlign(v_align)
