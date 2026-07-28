@@ -854,19 +854,19 @@ class PetaDesaLayoutGenerator:
 
         if is_a0:
             if os.path.isfile(logo_path):
-                self.add_picture(layout, logo_path, panel_x + 15, 345.0, 25.0, 25.0, item_id="PIC_LOGO_PEMDA")
+                self.add_picture(layout, logo_path, panel_x + 15, 347.5, 25.0, 25.0, item_id="PIC_LOGO_PEMDA")
             else:
-                self.add_box(layout, panel_x + 15, 345.0, 25.0, 25.0, item_id="BOX_LOGO_PEMDA")
-                self.add_label(layout, "LOGO\nPEMDA", panel_x + 15, 345.0, 25.0, 25.0, size=8, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
+                self.add_box(layout, panel_x + 15, 347.5, 25.0, 25.0, item_id="BOX_LOGO_PEMDA")
+                self.add_label(layout, "LOGO\nPEMDA", panel_x + 15, 347.5, 25.0, 25.0, size=8, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
 
             self.add_label(layout, penerbit_txt, panel_x + 45, 345.0, 200.0, 30.0, size=12, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_PENERBIT")
             self.add_line(layout, panel_x, 385.0, panel_x + panel_w, 385.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_3")
         else:
             if os.path.isfile(logo_path):
-                self.add_picture(layout, logo_path, 511.0, 171.0, 15.0, 15.0, item_id="PIC_LOGO_PEMDA")
+                self.add_picture(layout, logo_path, 511.0, 171.5, 15.0, 15.0, item_id="PIC_LOGO_PEMDA")
             else:
-                self.add_box(layout, 511.0, 171.0, 15.0, 15.0, item_id="BOX_LOGO_PEMDA")
-                self.add_label(layout, "LOGO\nPEMDA", 511.0, 171.0, 15.0, 15.0, size=5, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
+                self.add_box(layout, 511.0, 171.5, 15.0, 15.0, item_id="BOX_LOGO_PEMDA")
+                self.add_label(layout, "LOGO\nPEMDA", 511.0, 171.5, 15.0, 15.0, size=5, bold=True, font_family="Arial Narrow", h_align=Qt.AlignCenter, item_id="TXT_LOGO_PEMDA")
 
             self.add_label(layout, penerbit_txt, 529.0, 170.0, 102.0, 18.0, size=7, font_family="Arial Narrow", h_align=Qt.AlignLeft, item_id="TXT_PENERBIT")
             self.add_line(layout, 509.0, 198.0, 631.0, 198.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_3")
