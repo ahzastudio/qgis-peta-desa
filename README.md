@@ -34,10 +34,10 @@ Plugin ini sangat membantu dan mempercepat kerja kartografer, perangkat desa, se
 ## 🚀 Cara Penggunaan
 
 1. Buka *project* QGIS yang berisi layer spasial Peta Desa Anda.
-2. Pastikan Anda telah melakukan *Zoom to Layer* atau memusatkan tampilan kanvas peta (*map canvas*) pada batas administrasi (AOI) desa yang akan dicetak.
+2. **PENTING:** Lakukan *Zoom to Layer* pada layer batas desa (AOI) Anda agar kanvas peta tepat terpusat pada wilayah tersebut.
 3. Klik tombol plugin **Peta Desa** pada toolbar.
 4. Jendela dialog akan terbuka. Masukkan parameter atribut wilayah (Nama Desa, Kecamatan, Lokasi File Logo Pemda, dll).
-5. **Cek Skala Otomatis (Auto-Scale to AOI):** Plugin akan mendeteksi *extent* (cakupan wilayah) pada layer atau kanvas Anda. Skala ideal akan otomatis dihitung agar pas (*fit*) di dalam bingkai (frame) peta utama berdasarkan ukuran kertas yang Anda pilih. Anda tetap bisa menyesuaikan angka skala ini secara manual (misalnya membulatkan dari 1:5320 menjadi 1:5000) pada kolom *Skala Utama*.
+5. **Cek Skala Otomatis (Auto-Scale to AOI):** Karena Anda sudah melakukan *Zoom to Layer* sebelumnya, plugin akan mendeteksi *extent* (cakupan) kanvas tersebut dan mengalkulasi skala ideal secara otomatis agar pas (*fit*) di bingkai cetak. Anda bisa menyesuaikan/membulatkan angka skala ini secara manual (misal: dari 1:5320 menjadi 1:5000).
 6. Tentukan opsi ukuran kertas Layout (A1 ISO atau A0 Custom).
 7. Klik **Jalankan / Generate**.
 8. QGIS *Print Layout* baru akan otomatis tersusun dengan hasil akhir yang siap diekspor ke PDF/Image.
