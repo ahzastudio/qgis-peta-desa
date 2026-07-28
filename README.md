@@ -12,7 +12,7 @@ Plugin ini sangat membantu dan mempercepat kerja kartografer, perangkat desa, se
 
 ## 🌟 Fitur Utama (Key Features)
 
-* **Otomatisasi Penuh (A1 & A0):** Hanya dengan sekali klik, layout peta Anda akan langsung terbangun lengkap dengan seluruh ornamen petanya, baik untuk ukuran kertas A1 (ISO) maupun A0 (Custom).
+* **Otomatisasi Penuh (A1 & A0):** Hanya dengan sekali klik, layout peta Anda akan langsung terbangun lengkap dengan seluruh ornamen petanya. Mendukung ukuran kertas A1 dan A0, masing-masing tersedia dalam opsi dimensi **Real (ISO)** maupun **Custom** untuk *plotter*.
 * **Standarisasi PerKa BIG No. 3 Tahun 2016:** Tata letak Muka Peta, Informasi Tepi Peta, Arah Utara, Skala (Angka & Grafis), Legenda (Keterangan), Riwayat Pembuatan, hingga Sistem Koordinat dikalkulasi dan ditempatkan secara presisi.
 * **Smart Map Grids:** Secara otomatis membangun 2 jenis Grid presisi pada Peta Utama: 
     * *Graticul* (Grid Geografis DMS) berawarna biru cerah
@@ -38,7 +38,9 @@ Plugin ini sangat membantu dan mempercepat kerja kartografer, perangkat desa, se
 3. Klik tombol plugin **Peta Desa** pada toolbar.
 4. Jendela dialog akan terbuka. Masukkan parameter atribut wilayah (Nama Desa, Kecamatan, Lokasi File Logo Pemda, dll).
 5. **Cek Skala Otomatis (Auto-Scale to AOI):** Karena Anda sudah melakukan *Zoom to Layer* sebelumnya, plugin akan mendeteksi *extent* (cakupan) kanvas tersebut dan mengalkulasi skala ideal secara otomatis agar pas (*fit*) di bingkai cetak. Anda bisa menyesuaikan/membulatkan angka skala ini secara manual (misal: dari 1:5320 menjadi 1:5000).
-6. Tentukan opsi ukuran kertas Layout (A1 ISO atau A0 Custom).
+6. **Pilih Ukuran Kertas Layout**. Terdapat 4 opsi yang bisa dipilih sesuai kebutuhan cetak Anda:
+    - **A1/A0 Landscape (Real/ISO):** Menggunakan dimensi standar internasional baku (A1: 841x594 mm, A0: 1189x841 mm).
+    - **A1/A0 Landscape (Custom):** Menggunakan dimensi yang sedikit diperkecil (A1: 660x520 mm, A0: 1050x780 mm). **Direkomendasikan** jika Anda akan mencetak menggunakan *plotter*, karena ukuran custom ini memberikan "ruang bernapas" (*margin*) ekstra agar garis terluar bingkai peta (*neatline*) tidak terpotong oleh batas cetak (unprintable area) mesin *plotter*.
 7. Klik **Jalankan / Generate**.
 8. QGIS *Print Layout* baru akan otomatis tersusun dengan hasil akhir yang siap diekspor ke PDF/Image.
 
