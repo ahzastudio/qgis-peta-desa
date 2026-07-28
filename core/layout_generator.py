@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
-LAYOUT GENERATOR ENGINE â€“ QGIS 3.x (PERKABIG NO. 3 TAHUN 2016)
+LAYOUT GENERATOR ENGINE Ã¢â‚¬â€œ QGIS 3.x (PERKABIG NO. 3 TAHUN 2016)
 ----------------------------------------------------------------------
 Pengembang: CAT Spatial Specialist
 Deskripsi  : PyQGIS Engine presisi tinggi:
@@ -11,6 +11,7 @@ Deskripsi  : PyQGIS Engine presisi tinggi:
 """
 
 import os
+import tempfile
 from pathlib import Path
 
 from qgis.PyQt.QtCore import Qt
@@ -269,7 +270,7 @@ class PetaDesaLayoutGenerator:
             try:
                 grid1.setFramePenColor(azure_color)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error setFramePenColor grid1: {e}\n")
                 
             line_width1 = '0.5' if is_a0 else '0.3'
@@ -281,7 +282,7 @@ class PetaDesaLayoutGenerator:
                 txt_fmt.setSize(12.0 if is_a0 else 8.0)
                 grid1.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error Font Grid 1: {e}\n")
 
             # 2. Grid Measure (UTM Meter: 500m)
@@ -338,12 +339,12 @@ class PetaDesaLayoutGenerator:
                 txt_fmt.setSize(14.0 if is_a0 else 9.0)
                 grid2.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error Font Grid 2: {e}\n")
 
         except Exception as exc:
             import traceback
-            import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+            with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                 f.write(f"Error Grid Utama: {exc}\n{traceback.format_exc()}\n")
 
     def setup_inset1_grid(self, inset_item, is_a0=False):
@@ -362,7 +363,7 @@ class PetaDesaLayoutGenerator:
             try:
                 grid.setFramePenColor(azure_color)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error setFramePenColor grid (inset1): {e}\n")
             line_symbol = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.1'})
             grid.setLineSymbol(line_symbol)
@@ -382,11 +383,11 @@ class PetaDesaLayoutGenerator:
                 txt_fmt.setSize(10.0 if is_a0 else 6.0)
                 grid.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error Font Inset 1: {e}\n")
         except Exception as exc:
             import traceback
-            import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+            with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                 f.write(f"Error Grid Inset 1: {exc}\n{traceback.format_exc()}\n")
 
     def setup_inset2_grid(self, inset_item, main_map, config, is_a0=False):
@@ -422,7 +423,7 @@ class PetaDesaLayoutGenerator:
             try:
                 grid.setFramePenColor(azure_color)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error setFramePenColor grid (inset2): {e}\n")
             line_symbol = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.4'})
             grid.setLineSymbol(line_symbol)
@@ -442,7 +443,7 @@ class PetaDesaLayoutGenerator:
                 txt_fmt.setSize(10.0 if is_a0 else 6.0)
                 grid.setAnnotationTextFormat(txt_fmt)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error Font Inset 2: {e}\n")
 
             # Hapus overview lama dengan removeOverview jika ada, atau buat yang baru
@@ -450,7 +451,7 @@ class PetaDesaLayoutGenerator:
                 if inset_item.overviews().overview("Overview 1"):
                     inset_item.overviews().removeOverview("Overview 1")
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error removeOverview: {e}\n")
                 
             from qgis.core import QgsLayoutItemMapOverview
@@ -463,7 +464,7 @@ class PetaDesaLayoutGenerator:
             overview.setFrameSymbol(symbol)
         except Exception as exc:
             import traceback
-            import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+            with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                 f.write(f"Error Grid Inset 2: {exc}\n{traceback.format_exc()}\n")
 
     def generate_layout(self, config):
@@ -550,7 +551,7 @@ class PetaDesaLayoutGenerator:
         try:
             main_map.setScale(skala)
         except Exception as e:
-            import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+            with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                 f.write(f"Error setScale main_map: {e}\n")
 
         self.setup_main_map_grids(main_map, skala, is_a0=is_a0)
@@ -598,7 +599,7 @@ class PetaDesaLayoutGenerator:
                 north.attemptMove(self.mm_point(north_x + getattr(self, 'dx', 0), north_y + getattr(self, 'dy', 0)))
                 north.attemptResize(self.mm_size(north_w, north_h))
             else:
-                self.add_label(layout, "U\nâ†‘", north_x, north_y, north_w, north_h, size=20, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
+                self.add_label(layout, "U\nÃ¢â€ â€˜", north_x, north_y, north_w, north_h, size=20, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
                 
             self.add_label(layout, f"SKALA 1 : {skala:,}".replace(",", "."), panel_x + 65.0, 120.0, 150.0, 10.0, size=22, bold=True, h_align=Qt.AlignLeft, item_id="SKALA_ANGKA")
             
@@ -614,7 +615,7 @@ class PetaDesaLayoutGenerator:
                 scale_bar.setUnitsPerSegment(skala / 100.0)
                 scale_bar.setHeight(4.0)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error setup scale_bar 1: {e}\n")
                 
             try:
@@ -623,7 +624,7 @@ class PetaDesaLayoutGenerator:
                 txt_fmt.setSize(12.0)
                 scale_bar.setTextFormat(txt_fmt)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error scale_bar text format 1: {e}\n")
                 
             scale_bar.setFrameEnabled(False)
@@ -634,7 +635,7 @@ class PetaDesaLayoutGenerator:
             try:
                 scale_bar.update()
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error scale_bar update 1: {e}\n")
                 
             self.add_line(layout, panel_x, 170.0, panel_x + panel_w, 170.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_1")
@@ -654,7 +655,7 @@ class PetaDesaLayoutGenerator:
                 north.attemptMove(self.mm_point(north_x + getattr(self, 'dx', 0), north_y + getattr(self, 'dy', 0)))
                 north.attemptResize(self.mm_size(north_w, north_h))
             else:
-                self.add_label(layout, "U\nâ†‘", north_x, north_y, north_w, north_h, size=11, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
+                self.add_label(layout, "U\nÃ¢â€ â€˜", north_x, north_y, north_w, north_h, size=11, bold=True, h_align=Qt.AlignCenter, frame=False, item_id="ARAH_UTARA")
 
             # Teks Skala Angka
             self.add_label(layout, f"SKALA 1 : {skala:,}".replace(",", "."), 521.32, 69.02, 85.0, 5.0, size=13, bold=True, h_align=Qt.AlignLeft, item_id="SKALA_ANGKA")
@@ -677,10 +678,10 @@ class PetaDesaLayoutGenerator:
                 try:
                     scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFixed)
                 except Exception as e:
-                    import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                    with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                         f.write(f"Error scale_bar SegmentSizeFixed: {e}\n")
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error setup scale_bar 2: {e}\n")
 
             scale_bar.setFrameEnabled(False)
@@ -691,7 +692,7 @@ class PetaDesaLayoutGenerator:
             try:
                 scale_bar.update()
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error scale_bar update 2: {e}\n")
 
             # Garis Pembatas Aksen Cyan (#00A9E6)
@@ -800,7 +801,7 @@ class PetaDesaLayoutGenerator:
             self.setup_inset1_grid(inset1, is_a0=is_a0)
             self.setup_inset2_grid(inset2, main_map, config, is_a0=is_a0)
         except Exception as e:
-            import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+            with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                 f.write(f"Error setup inset grids: {e}\n")
 
         # Metadata Koordinat di bawah Inset
@@ -900,7 +901,7 @@ class PetaDesaLayoutGenerator:
             legend.setSplitLayer(True)
             legend.setEqualColumnWidth(False)
         except Exception as e:
-            import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+            with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                 f.write(f"Error legend columns setup: {e}\n")
 
         layout.addLayoutItem(legend)
@@ -917,7 +918,7 @@ class PetaDesaLayoutGenerator:
                 legend.setStyleFont(QgsLegendStyle.Subgroup, QFont("Arial Narrow", 12, QFont.Bold))
                 legend.setStyleFont(QgsLegendStyle.SymbolLabel, QFont("Arial Narrow", 10))
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error legend fonts a0: {e}\n")
         else:
             legend.attemptMove(self.mm_point(509.0 + getattr(self, 'dx', 0), 201.0 + getattr(self, 'dy', 0)))
@@ -936,7 +937,7 @@ class PetaDesaLayoutGenerator:
                 legend.setStyleMargin(QgsLegendStyle.Subgroup, 2.0)
                 legend.setStyleMargin(QgsLegendStyle.SymbolLabel, 1.0)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error legend fonts a1: {e}\n")
 
         # G. Footer Sidebar Block - Ekstrak Presisi QPT
@@ -1011,8 +1012,9 @@ class PetaDesaLayoutGenerator:
             try:
                 self.iface.openLayoutDesigner(layout)
             except Exception as e:
-                import os, tempfile; with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
+                with open(os.path.join(tempfile.gettempdir(), "qgis_peta_desa_error.log"), "a", encoding="utf-8") as f:
                     f.write(f"Error openLayoutDesigner: {e}\n")
 
         return layout
+
 

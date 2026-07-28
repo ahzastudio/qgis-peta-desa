@@ -2,7 +2,7 @@
 name=Template Peta Desa
 qgisMinimumVersion=3.0
 description=Automated layout generator and professional presentation tool for Village Maps based on Indonesian Geospatial Agency (BIG) standards.
-version=1.0.4
+version=1.0.5
 author=Ahza Studio
 email=admin@ahzastudio.web.id
 about=A professional QGIS 3.x plugin to automatically generate Village Map Layouts (Imagery, Infrastructure, and Land Cover) complete with map frames, legends, insets, scale bars, and SRGI 2013 metadata.
