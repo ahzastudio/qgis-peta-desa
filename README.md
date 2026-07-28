@@ -2,7 +2,7 @@
 
 ![QGIS Plugin](https://img.shields.io/badge/QGIS-3.0+-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)
-![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)
+![Version](https://img.shields.io/badge/Version-1.0.1-orange.svg)
 
 **Template Peta Desa** adalah plugin QGIS profesional yang dirancang khusus untuk mengotomatisasi pembuatan Layout Peta Desa sesuai standar PerKa BIG No. 3 Tahun 2016 secara dinamis.
 
@@ -34,16 +34,18 @@ Plugin ini sangat membantu dan mempercepat kerja kartografer, perangkat desa, se
 ## 🚀 Cara Penggunaan
 
 1. Buka *project* QGIS yang berisi layer spasial Peta Desa Anda.
-2. Klik tombol plugin **Peta Desa** pada toolbar.
-3. Jendela dialog akan terbuka. Masukkan parameter atribut wilayah (Nama Desa, Kecamatan, Skala, Lokasi File Logo Pemda, dll).
-4. Tentukan opsi ukuran kertas Layout (A1 ISO atau A0 Custom).
-5. Klik **Jalankan / Generate**.
-6. QGIS *Print Layout* baru akan otomatis tersusun dengan hasil akhir yang siap diekspor ke PDF/Image.
+2. Pastikan Anda telah melakukan *Zoom to Layer* atau memusatkan tampilan kanvas peta (*map canvas*) pada batas administrasi (AOI) desa yang akan dicetak.
+3. Klik tombol plugin **Peta Desa** pada toolbar.
+4. Jendela dialog akan terbuka. Masukkan parameter atribut wilayah (Nama Desa, Kecamatan, Lokasi File Logo Pemda, dll).
+5. **Cek Skala Otomatis (Auto-Scale to AOI):** Plugin akan mendeteksi *extent* (cakupan wilayah) pada layer atau kanvas Anda. Skala ideal akan otomatis dihitung agar pas (*fit*) di dalam bingkai (frame) peta utama berdasarkan ukuran kertas yang Anda pilih. Anda tetap bisa menyesuaikan angka skala ini secara manual (misalnya membulatkan dari 1:5320 menjadi 1:5000) pada kolom *Skala Utama*.
+6. Tentukan opsi ukuran kertas Layout (A1 ISO atau A0 Custom).
+7. Klik **Jalankan / Generate**.
+8. QGIS *Print Layout* baru akan otomatis tersusun dengan hasil akhir yang siap diekspor ke PDF/Image.
 
 ## 🤝 Dukungan & Isu (Contact & Support)
 
 * **Author:** Ahza Studio
-* **Email:** admin@ahzastudio.com
+* **Email:** admin@ahzastudio.web.id
 * **Issue Tracker:** [Report a Bug](https://github.com/ahzastudio/qgis-peta-desa/issues)
 
 Jika Anda menemukan celah (*bug*) atau mempunyai ide fantastis untuk pembaruan fitur, silakan buat *New Issue* pada tautan di atas.
