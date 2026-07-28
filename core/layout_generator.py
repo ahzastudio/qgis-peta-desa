@@ -276,8 +276,9 @@ class PetaDesaLayoutGenerator:
             # Ubah warna frame/tick mark menjadi biru agar serasi
             try:
                 grid1.setFramePenColor(azure_color)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error setFramePenColor grid1: {e}\n")
                 
             line_width1 = '0.5' if is_a0 else '0.3'
             line_symbol1 = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': line_width1})
@@ -368,8 +369,9 @@ class PetaDesaLayoutGenerator:
             grid.setAnnotationFontColor(azure_color)
             try:
                 grid.setFramePenColor(azure_color)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error setFramePenColor grid (inset1): {e}\n")
             line_symbol = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.1'})
             grid.setLineSymbol(line_symbol)
             
@@ -427,8 +429,9 @@ class PetaDesaLayoutGenerator:
             grid.setAnnotationFontColor(azure_color)
             try:
                 grid.setFramePenColor(azure_color)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error setFramePenColor grid (inset2): {e}\n")
             line_symbol = QgsLineSymbol.createSimple({'color': '115,223,255,255', 'width': '0.4'})
             grid.setLineSymbol(line_symbol)
             
@@ -454,8 +457,9 @@ class PetaDesaLayoutGenerator:
             try:
                 if inset_item.overviews().overview("Overview 1"):
                     inset_item.overviews().removeOverview("Overview 1")
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error removeOverview: {e}\n")
                 
             from qgis.core import QgsLayoutItemMapOverview
             overview = QgsLayoutItemMapOverview("Overview 1", inset_item)
@@ -553,8 +557,9 @@ class PetaDesaLayoutGenerator:
         skala = int(config.get("skala_utama", 5000))
         try:
             main_map.setScale(skala)
-        except Exception:
-            pass
+        except Exception as e:
+            with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                f.write(f"Error setScale main_map: {e}\n")
 
         self.setup_main_map_grids(main_map, skala, is_a0=is_a0)
 
@@ -616,16 +621,18 @@ class PetaDesaLayoutGenerator:
             try:
                 scale_bar.setUnitsPerSegment(skala / 100.0)
                 scale_bar.setHeight(4.0)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error setup scale_bar 1: {e}\n")
                 
             try:
                 txt_fmt = scale_bar.textFormat()
                 txt_fmt.setFont(QFont("Arial"))
                 txt_fmt.setSize(12.0)
                 scale_bar.setTextFormat(txt_fmt)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error scale_bar text format 1: {e}\n")
                 
             scale_bar.setFrameEnabled(False)
             scale_bar.setBackgroundEnabled(False)
@@ -634,8 +641,9 @@ class PetaDesaLayoutGenerator:
             scale_bar.attemptResize(self.mm_size(160.0, 20.0))
             try:
                 scale_bar.update()
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error scale_bar update 1: {e}\n")
                 
             self.add_line(layout, panel_x, 170.0, panel_x + panel_w, 170.0, stroke_width=1.5, stroke_color="0,169,230,255", item_id="LINE_DIV_1")
 
@@ -676,10 +684,12 @@ class PetaDesaLayoutGenerator:
                 scale_bar.setHeight(3.0)
                 try:
                     scale_bar.setSegmentSizeMode(QgsScaleBarSettings.SegmentSizeFixed)
-                except Exception:
-                    pass
-            except Exception:
-                pass
+                except Exception as e:
+                    with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                        f.write(f"Error scale_bar SegmentSizeFixed: {e}\n")
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error setup scale_bar 2: {e}\n")
 
             scale_bar.setFrameEnabled(False)
             scale_bar.setBackgroundEnabled(False)
@@ -688,8 +698,9 @@ class PetaDesaLayoutGenerator:
             scale_bar.attemptResize(self.mm_size(92.4, 13.2))
             try:
                 scale_bar.update()
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error scale_bar update 2: {e}\n")
 
             # Garis Pembatas Aksen Cyan (#00A9E6)
             self.add_line(layout, 509.0, 90.0, 631.0, 90.0, stroke_width=0.8, stroke_color="0,169,230,255", item_id="LINE_DIV_1")
@@ -796,8 +807,9 @@ class PetaDesaLayoutGenerator:
             # Pasang Grid 10 Menit untuk Inset 1 & Grid 1 Menit + Overview untuk Inset 2
             self.setup_inset1_grid(inset1, is_a0=is_a0)
             self.setup_inset2_grid(inset2, main_map, config, is_a0=is_a0)
-        except Exception:
-            pass
+        except Exception as e:
+            with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                f.write(f"Error setup inset grids: {e}\n")
 
         # Metadata Koordinat di bawah Inset
         meta_srs_left = (
@@ -895,8 +907,9 @@ class PetaDesaLayoutGenerator:
             legend.setColumnCount(2)
             legend.setSplitLayer(True)
             legend.setEqualColumnWidth(False)
-        except Exception:
-            pass
+        except Exception as e:
+            with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                f.write(f"Error legend columns setup: {e}\n")
 
         layout.addLayoutItem(legend)
         
@@ -911,8 +924,9 @@ class PetaDesaLayoutGenerator:
                 legend.setStyleFont(legend.GroupTitle, QFont("Arial Narrow", 12, QFont.Bold))
                 legend.setStyleFont(legend.SubgroupTitle, QFont("Arial Narrow", 12, QFont.Bold))
                 legend.setStyleFont(legend.SymbolLabel, QFont("Arial Narrow", 10))
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error legend fonts a0: {e}\n")
         else:
             legend.attemptMove(self.mm_point(509.0 + getattr(self, 'dx', 0), 201.0 + getattr(self, 'dy', 0)))
             legend.attemptResize(self.mm_size(120.0, 215.0))
@@ -929,8 +943,9 @@ class PetaDesaLayoutGenerator:
                 legend.setStyleMargin(legend.GroupTitle, 2.0)
                 legend.setStyleMargin(legend.SubgroupTitle, 1.5)
                 legend.setStyleMargin(legend.SymbolLabel, 1.0)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error legend fonts a1: {e}\n")
 
         # G. Footer Sidebar Block - Ekstrak Presisi QPT
         if is_a0:
@@ -1003,7 +1018,8 @@ class PetaDesaLayoutGenerator:
         if self.iface:
             try:
                 self.iface.openLayoutDesigner(layout)
-            except Exception:
-                pass
+            except Exception as e:
+                with open(r"d:\TOOLBOX\TEMPLATE PETA DESA\error_log.txt", "a") as f:
+                    f.write(f"Error openLayoutDesigner: {e}\n")
 
         return layout
