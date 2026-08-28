@@ -65,12 +65,31 @@ class PetaDesaPlugin:
             callback=self.run,
             parent=self.iface.mainWindow()
         )
-
+        self.add_action(
+            "",
+            text=self.tr('Tentang Plugin'),
+            callback=self.show_about,
+            parent=self.iface.mainWindow(),
+            add_to_toolbar=False
+        )
     def unload(self):
         """Removes plugin menu and toolbar icons upon unload."""
         for action in self.actions:
             self.iface.removePluginMenu('&Template Peta Desa PerKa BIG', action)
             self.iface.removeVectorToolBarIcon(action)
+
+    def show_about(self):
+        """Menampilkan kotak dialog Tentang Plugin."""
+        QMessageBox.about(
+            self.iface.mainWindow(),
+            "Tentang Template Peta Desa",
+            "<b>Template Peta Desa PerKa BIG No. 3/2016</b><br><br>"
+            "Plugin QGIS resmi untuk otomatisasi pembuatan layout Peta Desa "
+            "berdasarkan standar Badan Informasi Geospasial (BIG).<br><br>"
+            "<b>Pengembang:</b> Ahza Studio<br>"
+            "<b>Versi:</b> 1.0.7<br>"
+            "<b>Kontak:</b> admin@ahzastudio.web.id"
+        )
 
     def run(self):
         """Memunculkan dialog wizard dan mengeksekusi pembuatan layout."""
