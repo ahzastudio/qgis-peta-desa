@@ -13,9 +13,34 @@
   <property name="windowTitle">
    <string>Template Peta Desa PerKa BIG No. 3/2016</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="mainLayout">
    <item>
-    <widget class="QLabel" name="lblTitle">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="styleSheet">
+      <string>QScrollBar:vertical { border: none; background: transparent; width: 6px; margin: 0; }
+QScrollBar::handle:vertical { background: #BDBDBD; min-height: 20px; border-radius: 3px; }
+QScrollBar::handle:vertical:hover { background: #9E9E9E; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { border: none; background: none; height: 0px; }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }</string>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>500</width>
+        <height>500</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="lblTitle">
      <property name="font">
       <font>
        <family>Arial</family>
@@ -337,6 +362,10 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
